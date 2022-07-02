@@ -67,74 +67,83 @@ const specialCharacters = ["!",
   "*",
   "(",
   ")",]
-var newPassword = []
 
 //prompts
 function generatePassword() {
   let passwordLength = prompt("What length would you like your password to be? (Must be 8-128 Characters)")
   let numpasswordLength = parseInt(passwordLength)
+  let newPassword = [];
   if (numpasswordLength < 128 && numpasswordLength > 7) {
     let lowerConfirm = confirm("Do you want to use lower case characters?");
     let upperConfirm = confirm("Do you want to use upper case characters?");
     let specialConfirm = confirm("Do you want to use special Characters?");
     let numberConfirm = confirm("Do you want to use numbers?");
-    let numofTrue = 0;
+    let availableCharacters = [];
     if (lowerConfirm == true) {
-      numofTrue++
+      availableCharacters = availableCharacters.concat(lowerCase)
+      newPassword.push(lowerCase[Math.floor(Math.random() * lowerCase.length)])
     }
     if (upperConfirm == true) {
-      numofTrue++
-    }
-    if (specialConfirm == true) {
-      numofTrue++
-    }
-    if (numberConfirm = true) {
-      numofTrue++
-    }
-    console.log(numofTrue)
-    if (lowerConfirm == true) {
-      for (let index = 0; index < numpasswordLength / numofTrue; index++) {
-        newPassword.push(lowerCase[Math.floor(Math.random() * lowerCase.length)])
-      }
-      //logic to select specified # of elements from lowecase array, & push to newPassword array
-    }
-    if (upperConfirm == true) {
-      for (let index = 0; index < Math.floor(numpasswordLength / numofTrue); index++) {
+        availableCharacters = availableCharacters.concat(upperCase)
         newPassword.push(upperCase[Math.floor(Math.random() * upperCase.length)])
-        //logic to select specified # of elements from uppercase array, & push to newPassword array
-      }
     }
     if (specialConfirm == true) {
-      for (let index = 0; index < Math.floor(numpasswordLength / numofTrue); index++) {
+        availableCharacters = availableCharacters.concat(specialCharacters)
         newPassword.push(specialCharacters[Math.floor(Math.random() * specialCharacters.length)])
-        //logic to select specified # of elements from special array, & push to newPassword array
-      }
     }
     if (numberConfirm = true) {
-      for (let index = 0; index < Math.floor(numpasswordLength / numofTrue); index++) {
+        availableCharacters = availableCharacters.concat(numbers)
         newPassword.push(numbers[Math.floor(Math.random() * numbers.length)])
-        //logic to select specified # of elements from number array, & push to newPassword array
-      }
     }
+    for (let index = newPassword.length; index < numpasswordLength; index++) {
+        newPassword.push(availableCharacters[Math.floor(Math.random() * availableCharacters.length)])
+        
+    }
+    // My first way of solving this problem however it was broken as it would only return correct lengths
+    //console.log(numofTrue)
+    // if (lowerConfirm == true) {
+    //   for (let index = 0; index < numpasswordLength / numofTrue; index++) {
+    //     newPassword.push(lowerCase[Math.floor(Math.random() * lowerCase.length)])
+    //   }
+    //   //logic to select specified # of elements from lowecase array, & push to newPassword array
+    // }
+    // if (upperConfirm == true) {
+    //   for (let index = 0; index < Math.floor(numpasswordLength / numofTrue); index++) {
+    //     newPassword.push(upperCase[Math.floor(Math.random() * upperCase.length)])
+    //     //logic to select specified # of elements from uppercase array, & push to newPassword array
+    //   }
+    // }
+    // if (specialConfirm == true) {
+    //   for (let index = 0; index < Math.floor(numpasswordLength / numofTrue); index++) {
+    //     newPassword.push(specialCharacters[Math.floor(Math.random() * specialCharacters.length)])
+    //     //logic to select specified # of elements from special array, & push to newPassword array
+    //   }
+    // }
+    // if (numberConfirm = true) {
+    //   for (let index = 0; index < Math.floor(numpasswordLength / numofTrue); index++) {
+    //     newPassword.push(numbers[Math.floor(Math.random() * numbers.length)])
+    //     //logic to select specified # of elements from number array, & push to newPassword array
+    //   }
+    // }
 
   }
   else {
     alert("Sorry you must select a number between 8-128")
   }
  
-  console.log(newPassword)
+  console.log(newPassword);
   return newPassword.join('');
 }
+
+
 
 // Write password to the #password input
 function writePassword() {
 
-
-newPassword = []
-  var password = generatePassword();
+  var newPassword = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  passwordText.value = newPassword;
 
 }
 
@@ -152,5 +161,3 @@ generateBtn.addEventListener("click", writePassword);
   //Validate input and make sure at least one character type was selected (if, else)
 //generate password off of user input & determine character make up of password
 //return password to  display
-
-
