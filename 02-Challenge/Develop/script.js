@@ -121,6 +121,7 @@ function generatePassword() {
   else {
     alert("Sorry you must select a number between 8-128")
   }
+ 
   console.log(newPassword)
   return newPassword.join('');
 }
@@ -153,4 +154,3 @@ generateBtn.addEventListener("click", writePassword);
 //return password to  display
 
 
-// fix comma quirk, pick strings from array at random
